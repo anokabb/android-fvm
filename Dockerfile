@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # "11076708" as of 2024/03/04
 ENV ANDROID_SDK_TOOLS_VERSION="11076708"
-ENV NDK_VERSION="26.1.10909125"
+ENV NDK_VERSION="26.2.11394342"
 
 # Environment variables for Flutter and fvm
 ENV PATH="$PATH:/root/.pub-cache/bin:/fvm/default/bin"
