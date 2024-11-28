@@ -9,7 +9,7 @@ ENV ANDROID_SDK_TOOLS_VERSION="11076708"
 ENV NDK_VERSION="26.2.11394342"
 
 # Environment variables for Flutter and fvm
-ENV PATH="$PATH:/root/.pub-cache/bin:/fvm/default/bin"
+ENV PATH="$PATH:/fvm/default/bin"
 ENV ANDROID_SDK_ROOT=/opt/android-sdk
 ENV ANDROID_HOME=$ANDROID_SDK_ROOT
 ENV PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/tools/bin"
