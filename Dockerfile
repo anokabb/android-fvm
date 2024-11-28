@@ -17,10 +17,11 @@ ENV PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/pla
 # Update package lists
 RUN apt-get update
 
-# Install dependencies
-RUN apt-get install -y curl git unzip zip openjdk-17-jdk wget
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+# Install dependencies and OpenJDK 11
+RUN apt-get install -y curl git unzip zip wget openjdk-11-jdk
 
+# Set JAVA_HOME to OpenJDK 11
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 # Install Flutter Version Manager (FVM)
 RUN curl -fsSL https://fvm.app/install.sh | bash
