@@ -12,14 +12,14 @@ ENV NDK_VERSION="26.2.11394342"
 ENV PATH="$PATH:/root/.pub-cache/bin:/fvm/default/bin"
 ENV ANDROID_SDK_ROOT=/opt/android-sdk
 ENV ANDROID_HOME=$ANDROID_SDK_ROOT
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/tools/bin"
 
 # Update package lists
 RUN apt-get update
 
 # Install dependencies
-RUN apt-get install -y curl git unzip zip openjdk-17-jdk wget
+RUN apt-get install -y curl git unzip zip openjdk-11-jdk wget
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 
 # Install Flutter Version Manager (FVM)
