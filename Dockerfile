@@ -67,7 +67,6 @@ RUN yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
 # Install required Android SDK components
 RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
-    "platform-tools" \
     "ndk;${NDK_VERSION}"
 
 # Install Google Cloud SDK
