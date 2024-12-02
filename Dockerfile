@@ -10,9 +10,8 @@ ENV NDK_VERSION="26.2.11394342"
 
 # Environment variables for Flutter and fvm
 ENV PATH="$PATH:/fvm/default/bin"
-ENV ANDROID_SDK_ROOT=/opt/android-sdk
-ENV ANDROID_HOME=$ANDROID_SDK_ROOT
-ENV PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/tools/bin"
+ENV ANDROID_HOME="/opt/android-sdk"
+ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin"
 
 # Update package lists
 RUN apt-get update
@@ -58,16 +57,16 @@ RUN mkdir -p "$ANDROID_HOME" && \
     mv latest cmdline-tools
 
 # Print the contents of the bin directory
-RUN ls -l $ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+RUN ls -l $ANDROID_HOME/cmdline-tools/latest/bin
 
 # Set permissions and ensure sdkmanager is executable
-RUN chmod +x $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager
+RUN chmod +x $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager
 
 # Accept Android SDK licenses
-RUN yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+RUN yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
 # Install required Android SDK components
-RUN $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
+RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
     "platform-tools" \
     "platforms;android-30" \
     "platforms;android-31" \
