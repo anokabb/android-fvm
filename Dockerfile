@@ -12,7 +12,6 @@ ENV NDK_VERSION="26.2.11394342"
 ENV PATH="$PATH:/fvm/default/bin"
 ENV ANDROID_HOME="/opt/android-sdk"
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin"
-
 # Update package lists and install core dependencies
 RUN apt-get update && apt-get install -y \
     curl \
@@ -26,7 +25,8 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     apt-transport-https \
     ca-certificates \
-    gnupg
+    gnupg \
+    jq
 
 # Set JAVA_HOME to OpenJDK 17
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
