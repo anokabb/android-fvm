@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y \
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 # Install Bundler for Ruby
-RUN gem install bundler
+RUN gem install bundler -v 2.4.22
 
 # Install Flutter Version Manager (FVM)
 RUN curl -fsSL https://fvm.app/install.sh | bash
@@ -64,8 +64,16 @@ RUN yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 # Install necessary Android SDK components
 RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
     "platform-tools" \
+    "platforms;android-30" \
+    "platforms;android-31" \
+    "platforms;android-32" \
+    "platforms;android-33" \
     "platforms;android-34" \
     "platforms;android-35" \
+    "build-tools;30.0.3" \
+    "build-tools;31.0.0" \
+    "build-tools;32.0.0" \
+    "build-tools;33.0.0" \
     "build-tools;34.0.0" \
     "build-tools;35.0.0" \
     "ndk;${NDK_VERSION}"
