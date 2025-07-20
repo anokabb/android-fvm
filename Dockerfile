@@ -28,13 +28,14 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     jq
 
-# Set JAVA_HOME to OpenJDK 17
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+# Set JAVA_HOME to OpenJDK 17 (works for both x86_64 and ARM64)
+RUN JAVA_HOME=$(find /usr/lib/jvm -name "java-17-openjdk-*" -type d | head -1) && echo "JAVA_HOME=$JAVA_HOME" >> /etc/environment && export JAVA_HOME=$JAVA_HOME
 
 # Install Bundler for Ruby
 RUN gem install bundler -v 2.4.22
 
 # Install Flutter Version Manager (FVM)
+ENV FVM_ALLOW_ROOT=true
 RUN curl -fsSL https://fvm.app/install.sh | bash
 
 # Add FVM to PATH
@@ -75,17 +76,10 @@ RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
     "build-tools;32.0.0" \
     "build-tools;33.0.0" \
     "build-tools;34.0.0" \
-    "build-tools;35.0.0" \
-    "build-tools;36.0.0" 
+    "build-tools;35.0.0" 
     # "ndk;${NDK_VERSION}"
 
-# Install Google Cloud SDK
-RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" \
-    | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-    | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
-    apt-get update -y && \
-    apt-get install -y google-cloud-sdk
+
 
 # Validate Flutter installation
 RUN fvm flutter doctor
@@ -96,7 +90,6 @@ RUN yes | fvm flutter doctor --android-licenses
 # Validate all installations
 RUN ruby --version && \
     bundler --version && \
-    gcloud --version && \
     fvm flutter --version && \
     fvm dart --version
 
