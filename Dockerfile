@@ -41,9 +41,9 @@ RUN curl -fsSL https://fvm.app/install.sh | bash
 # Add FVM to PATH
 ENV PATH="$PATH:/root/.pub-cache/bin"
 
-# Default Flutter version (hardcoded to 3.24.5)
-ARG FLUTTER_VERSION=3.24.5
-RUN fvm install $FLUTTER_VERSION && fvm global $FLUTTER_VERSION
+ENV FVM_DEFAULT_VERSION=3.24.5
+# Install multiple Flutter versions but use 3.24.5 as default
+RUN fvm install 3.24.5 && fvm install 3.29.3 && fvm global $FVM_DEFAULT_VERSION
 
 # Install Android SDK command-line tools
 RUN wget --quiet --output-document=sdk-tools.zip \
@@ -75,6 +75,7 @@ RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
     "build-tools;31.0.0" \
     "build-tools;32.0.0" \
     "build-tools;33.0.0" \
+    "build-tools;33.0.1" \
     "build-tools;34.0.0" \
     "build-tools;35.0.0" 
     # "ndk;${NDK_VERSION}"
