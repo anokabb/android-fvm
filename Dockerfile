@@ -4,9 +4,9 @@ FROM ubuntu:20.04
 # Set DEBIAN_FRONTEND to noninteractive to avoid interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# "11076708" as of 2024/03/04
-ENV ANDROID_SDK_TOOLS_VERSION="11076708"
-ENV NDK_VERSION="26.2.11394342"
+# "13114758" as of 2025/07/20
+ENV ANDROID_SDK_TOOLS_VERSION="13114758"
+# ENV NDK_VERSION="26.2.11394342"
 
 # Environment variables for Flutter and FVM
 ENV PATH="$PATH:/fvm/default/bin"
@@ -40,8 +40,8 @@ RUN curl -fsSL https://fvm.app/install.sh | bash
 # Add FVM to PATH
 ENV PATH="$PATH:/root/.pub-cache/bin"
 
-# Default Flutter version (stable)
-ARG FLUTTER_VERSION=stable
+# Default Flutter version (hardcoded to 3.24.5)
+ARG FLUTTER_VERSION=3.24.5
 RUN fvm install $FLUTTER_VERSION && fvm global $FLUTTER_VERSION
 
 # Install Android SDK command-line tools
@@ -76,7 +76,8 @@ RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
     "build-tools;33.0.0" \
     "build-tools;34.0.0" \
     "build-tools;35.0.0" \
-    "ndk;${NDK_VERSION}"
+    "build-tools;36.0.0" 
+    # "ndk;${NDK_VERSION}"
 
 # Install Google Cloud SDK
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" \
